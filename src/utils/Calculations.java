@@ -2,6 +2,7 @@ package utils;
 
 import components.Node;
 
+import static gui.AnimationPanel.LINE_MAX_DISTANCE;
 import static gui.AnimationPanel.WINDOW_HEIGHT;
 import static gui.AnimationPanel.WINDOW_WIDTH;
 import static utils.RandomGeneration.randomFloat;
@@ -27,5 +28,23 @@ public class Calculations {
 
     public static float calculateInverseLineEquation(float yVal, float[] lineEquation){
         return (yVal - lineEquation[1]) / lineEquation[0];
+    }
+
+    // Easing function - https://easings.net/#easeInOutQuad
+    public static float easeInOutQuad(float x) {
+        if (x < 0.5) {
+            return (float) 2 * x * x;
+        }
+        else {
+            return (float) (1 - Math.pow(-2 * x + 2, 2) / 2);
+        }
+    }
+
+    public static float clamp(float min, float max, float val) {
+        return Math.max(min, Math.min(val, max));
+    }
+
+    public static int calculateAlphaByDistance(float distance) {
+        return Math.round(easeInOutQuad(1 - distance / LINE_MAX_DISTANCE) * 255);
     }
 }

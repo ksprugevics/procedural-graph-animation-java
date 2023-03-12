@@ -12,6 +12,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 
+import static utils.Calculations.calculateAlphaByDistance;
 import static utils.Calculations.euclideanDistanceBetweenNodes;
 
 public class AnimationPanel extends JPanel {
@@ -64,7 +65,6 @@ public class AnimationPanel extends JPanel {
     }
 
     private static void drawLinesBetweenNodes(Graphics2D g2d) {
-
         for (int i = 0; i < MANAGER.getNodes().size(); i++) {
             for (int j = 1; j < MANAGER.getNodes().size(); j++) {
                 Node p1 = MANAGER.getNodes().get(i);
@@ -75,7 +75,8 @@ public class AnimationPanel extends JPanel {
                     continue;
                 }
                 g2d.setStroke(new BasicStroke(LINE_WIDTH));
-                g2d.setColor(LINE_COLOR);
+                g2d.setColor(new Color(LINE_COLOR.getRed(), LINE_COLOR.getGreen(), LINE_COLOR.getBlue(),
+                        calculateAlphaByDistance(dist)));
                 g2d.draw(new Line2D.Float(p1.getxPos() + PADDING, p1.getyPos() + PADDING,
                         p2.getxPos() + PADDING, p2.getyPos() + PADDING));
             }
