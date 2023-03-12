@@ -13,6 +13,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 
 import static utils.Calculations.calculateAlphaByDistance;
+import static utils.Calculations.calculateStrokeThicknessByDistance;
 import static utils.Calculations.euclideanDistanceBetweenNodes;
 
 public class AnimationPanel extends JPanel {
@@ -28,7 +29,7 @@ public class AnimationPanel extends JPanel {
 
     public static final int NODE_SIZE = 50;
     public static final int PADDING = NODE_SIZE / 2;
-    public static final int LINE_WIDTH = 7;
+    public static final float LINE_MAX_WIDTH = 10;
     public static final int LINE_MAX_DISTANCE = 250;
 
 
@@ -74,7 +75,7 @@ public class AnimationPanel extends JPanel {
                 if (dist > LINE_MAX_DISTANCE) {
                     continue;
                 }
-                g2d.setStroke(new BasicStroke(LINE_WIDTH));
+                g2d.setStroke(new BasicStroke(calculateStrokeThicknessByDistance(dist)));
                 g2d.setColor(new Color(LINE_COLOR.getRed(), LINE_COLOR.getGreen(), LINE_COLOR.getBlue(),
                         calculateAlphaByDistance(dist)));
                 g2d.draw(new Line2D.Float(p1.getxPos() + PADDING, p1.getyPos() + PADDING,
