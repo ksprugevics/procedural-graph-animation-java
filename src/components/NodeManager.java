@@ -8,13 +8,11 @@ public final class NodeManager {
 
     private static NodeManager INSTANCE;
 
-    private static final int NODE_COUNT = 10;
+    private static int NODE_COUNT = 10;
     private static final List<Node> NODES = new ArrayList<>();
 
     private NodeManager() {
-        for (int i = 0; i < NODE_COUNT; i++) {
-            NODES.add(new Node());
-        }
+        resetNodes();
     }
 
     public static NodeManager getInstance() {
@@ -24,7 +22,23 @@ public final class NodeManager {
         return INSTANCE;
     }
 
+    public static int getNodeCount() {
+        return NODE_COUNT;
+    }
+
+    public static void setNodeCount(int nodeCount) {
+        NODE_COUNT = nodeCount;
+    }
+
     public List<Node> getNodes() {
         return NODES;
     }
+
+    public static void resetNodes() {
+        NODES.clear();
+        for (int i = 0; i < NODE_COUNT; i++) {
+            NODES.add(new Node());
+        }
+    }
+
 }

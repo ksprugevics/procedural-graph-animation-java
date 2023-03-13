@@ -1,8 +1,10 @@
 package gui;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 public class AnimationFrame {
@@ -17,10 +19,18 @@ public class AnimationFrame {
             }
 
             JFrame frame = new JFrame("Graph animation");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.add(new AnimationPanel());
+            JPanel containerPanel = new JPanel();
+            containerPanel.setLayout(new BorderLayout());
+
+            AnimationPanel animationPanel = new AnimationPanel();
+            ControlPanel controlPanel = new ControlPanel();
+            containerPanel.add(animationPanel, BorderLayout.EAST);
+            containerPanel.add(controlPanel, BorderLayout.WEST);
+
+            frame.add(containerPanel);
             frame.pack();
             frame.setLocationRelativeTo(null);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setVisible(true);
         });
     }

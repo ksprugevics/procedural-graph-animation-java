@@ -23,22 +23,27 @@ public class AnimationPanel extends JPanel {
     public static final int WINDOW_WIDTH = 900;
     public static final int WINDOW_HEIGHT = 900;
 
-    public static final Color BACKGROUND_COLOR = new Color(131, 193, 131);
-    public static final Color NODE_COLOR = new Color(224, 251, 252);
-    public static final Color LINE_COLOR = new Color(31, 198, 204);
+    public static Color BACKGROUND_COLOR = new Color(131, 193, 131);
+    public static Color NODE_COLOR = new Color(224, 251, 252);
+    public static Color LINE_COLOR = new Color(31, 198, 204);
 
-    public static final int NODE_SIZE = 50;
-    public static final int PADDING = NODE_SIZE / 2;
-    public static final float LINE_MAX_WIDTH = 10;
-    public static final int LINE_MAX_DISTANCE = 250;
+    public static int NODE_SIZE = 50;
+    public static int PADDING = NODE_SIZE / 2;
+    public static float LINE_MAX_WIDTH = 10;
+    public static int LINE_MAX_DISTANCE = 250;
 
+    public static int ANIMATION_SPEED = 40;
+    public static Timer ANIMATION_TIMER;
+    public static boolean ANIMATION_PAUSED = false;
 
     public AnimationPanel() {
-        Timer timer = new Timer(40, e -> {
-            MANAGER.getNodes().forEach(Node::move);
-            repaint();
+        ANIMATION_TIMER = new Timer(ANIMATION_SPEED, e -> {
+            if (!ANIMATION_PAUSED) {
+                MANAGER.getNodes().forEach(Node::move);
+                repaint();
+            }
         });
-        timer.start();
+        ANIMATION_TIMER.start();
     }
 
     @Override
