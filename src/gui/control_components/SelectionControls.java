@@ -5,7 +5,6 @@ import components.NodeManager;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSlider;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
@@ -21,6 +20,9 @@ public class SelectionControls extends JPanel  {
     public static final JLabel POSITION_LABEL = new JLabel();
     public static final JLabel VELOCITY_LABEL = new JLabel();
     public static final JLabel LINE_EQUATION_LABEL = new JLabel();
+    public static JSpinner SELECTED_VELOCITY_SPINNER;
+    public static JSpinner SELECTED_A_VALUE_SPINNER;
+    public static JSpinner SELECTED_B_VALUE_SPINNER;
 
     public SelectionControls () {
         TitledBorder border = new TitledBorder(new LineBorder(Color.black), "Selected Node",
@@ -31,31 +33,10 @@ public class SelectionControls extends JPanel  {
         this.setBorder(border);
         this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         createNodeInfoPanel();
-        this.add(createSelectedNodeVelocitySlider());
-        this.add(createLineEquationSliders());
+        this.add(createNodeSliders());
     }
 
-    private JSlider createSelectedNodeVelocitySlider() {
-        TitledBorder border = new TitledBorder(new LineBorder(TRANSPARENT), "Velocity",
-                TitledBorder.CENTER, TitledBorder.BELOW_TOP);
-        border.setTitleColor(Color.DARK_GRAY);
-
-        JSlider slider = new JSlider(JSlider.HORIZONTAL, -50 , 50, 1);
-        slider.setMajorTickSpacing(25);
-        slider.setMinorTickSpacing(5);
-        slider.setPaintTicks(true);
-        slider.setPaintLabels(true);
-        slider.addChangeListener(e -> {
-            JSlider source = (JSlider) e.getSource();
-            if (NodeManager.getSelectedNode() != null) {
-                NodeManager.getSelectedNode().setVelocity(source.getValue());
-            }
-        });
-        slider.setBorder(border);
-        return slider;
-    }
-
-    private JPanel createLineEquationSliders() {
+    private JPanel createNodeSliders() {
         TitledBorder border = new TitledBorder(new LineBorder(TRANSPARENT), "Line equation",
                 TitledBorder.CENTER, TitledBorder.BELOW_TOP);
         border.setTitleColor(Color.DARK_GRAY);
@@ -87,10 +68,26 @@ public class SelectionControls extends JPanel  {
             }
         });
 
+        SpinnerModel spinnerVelocity = new SpinnerNumberModel(1, -50, 50, 0.01);
+        JSpinner controlsVelocity = new JSpinner(spinnerVelocity);
+        controlsVelocity.setPreferredSize(new Dimension(100, 20));
+        controlsVelocity.addChangeListener(e -> {
+            JSpinner source = (JSpinner) e.getSource();
+            if (NodeManager.getSelectedNode() != null) {
+                double numberVal = (double) source.getValue();
+                NodeManager.getSelectedNode().setVelocity((float) numberVal);
+            }
+        });
+
         panel.add(new JLabel("y="));
         panel.add(controlsA);
         panel.add(new JLabel(" x + "));
         panel.add(controlsB);
+        panel.add(new JLabel("Velocity:"));
+        panel.add(controlsVelocity);
+        SELECTED_A_VALUE_SPINNER = controlsA;
+        SELECTED_B_VALUE_SPINNER = controlsB;
+        SELECTED_VELOCITY_SPINNER = controlsVelocity;
         return panel;
     }
 
