@@ -18,8 +18,6 @@ import static gui.panels.AnimationPanel.PADDING;
 
 public class NodeSelector implements MouseListener {
 
-    private static NodeManager MANAGER = NodeManager.getInstance();
-
     @Override
     public void mouseClicked(MouseEvent e) {
         selectNode(e.getX(), e.getY());

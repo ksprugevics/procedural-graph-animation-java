@@ -1,5 +1,6 @@
 package gui;
 
+import components.NodeManager;
 import gui.panels.AnimationPanel;
 import gui.panels.ControlPanel;
 
@@ -33,6 +34,8 @@ public class AnimationWindow {
             frame.setLocationRelativeTo(null);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setVisible(true);
+
+            NodeManager.resetNodes();
         });
     }
 }
