@@ -9,7 +9,7 @@ import java.awt.event.MouseListener;
 import static gui.control_components.SelectionControls.LINE_EQUATION_LABEL;
 import static gui.control_components.SelectionControls.POSITION_LABEL;
 import static gui.control_components.SelectionControls.VELOCITY_LABEL;
-import static gui.panels.AnimationPanel.NODE_SIZE;
+import static gui.panels.AnimationPanel.PADDING;
 
 public class NodeSelector implements MouseListener {
 
@@ -37,8 +37,8 @@ public class NodeSelector implements MouseListener {
 
     private void selectNode(int x, int y) {
         for (Node node : NodeManager.getNodes()) {
-            if (x >= node.getxPos() &&  x <= node.getxPos() + NODE_SIZE &&
-            y >= node.getyPos() && y <= node.getyPos() + NODE_SIZE) {
+            if (x >= node.getxPos() - PADDING &&  x <= node.getxPos() + PADDING &&
+            y >= node.getyPos() - PADDING && y <= node.getyPos() + PADDING) {
                 node.setSelected(true);
                 NodeManager.setSelectedNode(node);
             } else {

@@ -80,7 +80,7 @@ public class AnimationPanel extends JPanel {
                 LINE_EQUATION_LABEL.setText("y=" + String.format("%.3f", node.getLineEquation()[0]) +
                         "x + " + String.format("%.3f", node.getLineEquation()[1]));
             }
-            g2d.fillOval((int) node.getxPos(), (int) node.getyPos(), NODE_SIZE, NODE_SIZE);
+            g2d.fillOval((int) node.getxPos() - PADDING, (int) node.getyPos() - PADDING, NODE_SIZE, NODE_SIZE);
         }
     }
 
@@ -97,8 +97,8 @@ public class AnimationPanel extends JPanel {
                 g2d.setStroke(new BasicStroke(calculateStrokeThicknessByDistance(dist)));
                 g2d.setColor(new Color(LINE_COLOR.getRed(), LINE_COLOR.getGreen(), LINE_COLOR.getBlue(),
                         calculateAlphaByDistance(dist)));
-                g2d.draw(new Line2D.Float(p1.getxPos() + PADDING, p1.getyPos() + PADDING,
-                        p2.getxPos() + PADDING, p2.getyPos() + PADDING));
+                g2d.draw(new Line2D.Float(p1.getxPos(), p1.getyPos(),
+                        p2.getxPos(), p2.getyPos()));
             }
         }
 
