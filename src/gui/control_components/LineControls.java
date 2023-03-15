@@ -7,9 +7,9 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.Color;
 
-import static gui.AnimationPanel.LINE_MAX_DISTANCE;
-import static gui.AnimationPanel.LINE_MAX_WIDTH;
-import static gui.ControlPanel.TRANSPARENT;
+import static gui.panels.AnimationPanel.LINE_MAX_DISTANCE;
+import static gui.panels.AnimationPanel.LINE_MAX_WIDTH;
+import static gui.panels.ControlPanel.TRANSPARENT;
 
 public class LineControls extends JPanel {
 

@@ -8,9 +8,9 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.Color;
 
-import static gui.AnimationPanel.ANIMATION_PAUSED;
-import static gui.AnimationPanel.ANIMATION_TIMER;
-import static gui.ControlPanel.TRANSPARENT;
+import static gui.panels.AnimationPanel.ANIMATION_PAUSED;
+import static gui.panels.AnimationPanel.ANIMATION_TIMER;
+import static gui.panels.ControlPanel.TRANSPARENT;
 
 public class AnimationControls extends JPanel {
 

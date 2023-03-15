@@ -2,10 +2,10 @@ package utils;
 
 import components.Node;
 
-import static gui.AnimationPanel.LINE_MAX_DISTANCE;
-import static gui.AnimationPanel.LINE_MAX_WIDTH;
-import static gui.AnimationPanel.WINDOW_HEIGHT;
-import static gui.AnimationPanel.WINDOW_WIDTH;
+import static gui.panels.AnimationPanel.LINE_MAX_DISTANCE;
+import static gui.panels.AnimationPanel.LINE_MAX_WIDTH;
+import static gui.panels.AnimationPanel.WINDOW_HEIGHT;
+import static gui.panels.AnimationPanel.WINDOW_WIDTH;
 import static utils.RandomGeneration.randomFloat;
 
 public class Calculations {

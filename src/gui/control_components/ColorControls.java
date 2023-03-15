@@ -10,9 +10,9 @@ import javax.swing.border.TitledBorder;
 import java.awt.Color;
 import java.awt.Dimension;
 
-import static gui.AnimationPanel.BACKGROUND_COLOR;
-import static gui.AnimationPanel.LINE_COLOR;
-import static gui.AnimationPanel.NODE_COLOR;
+import static gui.panels.AnimationPanel.BACKGROUND_COLOR;
+import static gui.panels.AnimationPanel.LINE_COLOR;
+import static gui.panels.AnimationPanel.NODE_COLOR;
 
 public class ColorControls extends JPanel {
 
@@ -29,7 +29,7 @@ public class ColorControls extends JPanel {
         border.setTitlePosition(TitledBorder.DEFAULT_POSITION);
         this.setBorder(border);
         this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-        this.setPreferredSize(new Dimension(50, 100));
+        this.setPreferredSize(new Dimension(70, 100));
         this.add(createColorModeRadioButtons());
         this.add(createNodeColorChooser());
     }

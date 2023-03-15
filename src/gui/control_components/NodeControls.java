@@ -9,9 +9,9 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.Color;
 
-import static gui.AnimationPanel.NODE_SIZE;
-import static gui.AnimationPanel.PADDING;
-import static gui.ControlPanel.TRANSPARENT;
+import static gui.panels.AnimationPanel.NODE_SIZE;
+import static gui.panels.AnimationPanel.PADDING;
+import static gui.panels.ControlPanel.TRANSPARENT;
 
 public class NodeControls extends JPanel {
 

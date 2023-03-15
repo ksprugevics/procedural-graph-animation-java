@@ -2,10 +2,10 @@ package components;
 
 import java.util.Arrays;
 
-import static gui.AnimationPanel.NODE_SIZE;
-import static gui.AnimationPanel.PADDING;
-import static gui.AnimationPanel.WINDOW_HEIGHT;
-import static gui.AnimationPanel.WINDOW_WIDTH;
+import static gui.panels.AnimationPanel.NODE_SIZE;
+import static gui.panels.AnimationPanel.PADDING;
+import static gui.panels.AnimationPanel.WINDOW_HEIGHT;
+import static gui.panels.AnimationPanel.WINDOW_WIDTH;
 import static utils.Calculations.calculateInverseLineEquation;
 import static utils.Calculations.calculateLineEquation;
 import static utils.Calculations.generateRandomLineEquationThroughPoint;
@@ -17,30 +17,57 @@ public class Node {
     private float xPos;
     private float yPos;
 
-    private final float velocity;
-    private final float[] lineEquation;
+    private float velocity;
+    private float[] lineEquation;
+
+    private boolean selected;
 
     public Node() {
         xPos = randomFloat(0f, WINDOW_WIDTH);
         yPos = randomFloat(0f, WINDOW_HEIGHT);
         velocity = randomFloat(-2f, 2f);
         lineEquation = generateRandomLineEquationThroughPoint(xPos, yPos);
+        selected = false;
     }
 
     public float getxPos() {
         return xPos;
     }
 
+    public void setxPos(float xPos) {
+        this.xPos = xPos;
+    }
+
     public float getyPos() {
         return yPos;
+    }
+
+    public void setyPos(float yPos) {
+        this.yPos = yPos;
     }
 
     public float getVelocity() {
         return velocity;
     }
 
+    public void setVelocity(float velocity) {
+        this.velocity = velocity;
+    }
+
     public float[] getLineEquation() {
         return lineEquation;
+    }
+
+    public void setLineEquation(float[] lineEquation) {
+        this.lineEquation = lineEquation;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 
     public void move() {

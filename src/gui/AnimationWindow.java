@@ -1,5 +1,8 @@
 package gui;
 
+import gui.panels.AnimationPanel;
+import gui.panels.ControlPanel;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
@@ -7,9 +10,9 @@ import javax.swing.UnsupportedLookAndFeelException;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
-public class AnimationFrame {
+public class AnimationWindow {
 
-    public AnimationFrame() {
+    public AnimationWindow() {
         // Thread safe - https://stackoverflow.com/a/27475129
         EventQueue.invokeLater(() -> {
             try {
@@ -22,10 +25,8 @@ public class AnimationFrame {
             JPanel containerPanel = new JPanel();
             containerPanel.setLayout(new BorderLayout());
 
-            AnimationPanel animationPanel = new AnimationPanel();
-            ControlPanel controlPanel = new ControlPanel();
-            containerPanel.add(animationPanel, BorderLayout.EAST);
-            containerPanel.add(controlPanel, BorderLayout.WEST);
+            containerPanel.add(new AnimationPanel(), BorderLayout.EAST);
+            containerPanel.add(new ControlPanel(), BorderLayout.WEST);
 
             frame.add(containerPanel);
             frame.pack();

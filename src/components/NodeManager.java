@@ -10,6 +10,7 @@ public final class NodeManager {
 
     private static int NODE_COUNT = 10;
     private static final List<Node> NODES = new ArrayList<>();
+    private static Node selectedNode;
 
     private NodeManager() {
         resetNodes();
@@ -30,8 +31,16 @@ public final class NodeManager {
         NODE_COUNT = nodeCount;
     }
 
-    public List<Node> getNodes() {
+    public static List<Node> getNodes() {
         return NODES;
+    }
+
+    public static Node getSelectedNode() {
+        return selectedNode;
+    }
+
+    public static void setSelectedNode(Node selectedNode) {
+        NodeManager.selectedNode = selectedNode;
     }
 
     public static void resetNodes() {
@@ -40,5 +49,4 @@ public final class NodeManager {
             NODES.add(new Node());
         }
     }
-
 }

@@ -1,9 +1,10 @@
-package gui;
+package gui.panels;
 
 import gui.control_components.AnimationControls;
 import gui.control_components.ColorControls;
 import gui.control_components.LineControls;
 import gui.control_components.NodeControls;
+import gui.control_components.SelectionControls;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -24,6 +25,7 @@ public class ControlPanel extends JPanel {
         animationSettings.add(new AnimationControls());
         animationSettings.add(new NodeControls());
         animationSettings.add(new LineControls());
+        animationSettings.add(new SelectionControls());
 
         tabbedPane.addTab("Animation", new ImageIcon(), animationSettings, "Animation settings");
         tabbedPane.addTab("Colors", new ImageIcon(), new ColorControls(), "Color settings");

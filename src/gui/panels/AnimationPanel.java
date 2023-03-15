@@ -1,7 +1,8 @@
-package gui;
+package gui.panels;
 
 import components.Node;
 import components.NodeManager;
+import gui.event_handlers.NodeSelector;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -12,20 +13,24 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 
+import static gui.control_components.SelectionControls.LINE_EQUATION_LABEL;
+import static gui.control_components.SelectionControls.POSITION_LABEL;
+import static gui.control_components.SelectionControls.VELOCITY_LABEL;
 import static utils.Calculations.calculateAlphaByDistance;
+import static utils.Calculations.calculateLineEquation;
 import static utils.Calculations.calculateStrokeThicknessByDistance;
 import static utils.Calculations.euclideanDistanceBetweenNodes;
 
 public class AnimationPanel extends JPanel {
-
-    private static final NodeManager MANAGER = NodeManager.getInstance();
 
     public static final int WINDOW_WIDTH = 900;
     public static final int WINDOW_HEIGHT = 900;
 
     public static Color BACKGROUND_COLOR = new Color(131, 193, 131);
     public static Color NODE_COLOR = new Color(224, 251, 252);
+    public static Color SELECTED_NODE_COLOR = new Color(224, 8, 23);
     public static Color LINE_COLOR = new Color(31, 198, 204);
+    public static Color SELECTED_NODE_LINE_COLOR = new Color(231, 108, 252, 125);
 
     public static int NODE_SIZE = 50;
     public static int PADDING = NODE_SIZE / 2;
@@ -39,11 +44,12 @@ public class AnimationPanel extends JPanel {
     public AnimationPanel() {
         ANIMATION_TIMER = new Timer(ANIMATION_SPEED, e -> {
             if (!ANIMATION_PAUSED) {
-                MANAGER.getNodes().forEach(Node::move);
+                NodeManager.getNodes().forEach(Node::move);
                 repaint();
             }
         });
         ANIMATION_TIMER.start();
+        addMouseListener(new NodeSelector());
     }
 
     @Override
@@ -64,17 +70,25 @@ public class AnimationPanel extends JPanel {
     }
 
     private static void drawNodes(Graphics2D g2d) {
-        g2d.setColor(NODE_COLOR);
-        for (Node node : MANAGER.getNodes()) {
+        for (Node node : NodeManager.getNodes()) {
+            g2d.setColor(NODE_COLOR);
+            if (node.isSelected()) {
+                drawSelectedNodeLine(g2d, node);
+                g2d.setColor(SELECTED_NODE_COLOR);
+                POSITION_LABEL.setText("x: " + (int) node.getxPos() + " y: " + (int) node.getyPos());
+                VELOCITY_LABEL.setText("velocity: " +  String.format("%.2f", node.getVelocity()));
+                LINE_EQUATION_LABEL.setText("y=" + String.format("%.3f", node.getLineEquation()[0]) +
+                        "x + " + String.format("%.3f", node.getLineEquation()[1]));
+            }
             g2d.fillOval((int) node.getxPos(), (int) node.getyPos(), NODE_SIZE, NODE_SIZE);
         }
     }
 
     private static void drawLinesBetweenNodes(Graphics2D g2d) {
-        for (int i = 0; i < MANAGER.getNodes().size(); i++) {
-            for (int j = 1; j < MANAGER.getNodes().size(); j++) {
-                Node p1 = MANAGER.getNodes().get(i);
-                Node p2 = MANAGER.getNodes().get(j);
+        for (int i = 0; i < NodeManager.getNodes().size(); i++) {
+            for (int j = 1; j < NodeManager.getNodes().size(); j++) {
+                Node p1 = NodeManager.getNodes().get(i);
+                Node p2 = NodeManager.getNodes().get(j);
 
                 float dist = euclideanDistanceBetweenNodes(p1, p2);
                 if (dist > LINE_MAX_DISTANCE) {
@@ -88,5 +102,12 @@ public class AnimationPanel extends JPanel {
             }
         }
 
+    }
+
+    private static void drawSelectedNodeLine(Graphics2D g2d, Node node) {
+        g2d.setStroke(new BasicStroke(LINE_MAX_WIDTH, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{20}, 0));
+        g2d.setColor(SELECTED_NODE_LINE_COLOR);
+        g2d.draw(new Line2D.Float(-WINDOW_WIDTH * 2, calculateLineEquation(-WINDOW_WIDTH * 2, node.getLineEquation()),
+                WINDOW_WIDTH * 2, calculateLineEquation(WINDOW_WIDTH * 2, node.getLineEquation())));
     }
 }
