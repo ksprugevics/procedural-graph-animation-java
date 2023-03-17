@@ -2,6 +2,7 @@ package gui.panels;
 
 import components.Node;
 import components.NodeManager;
+import gui.control_components.SelectionControls;
 import gui.event_handlers.NodeSelector;
 
 import javax.swing.JPanel;
@@ -13,9 +14,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 
-import static gui.control_components.SelectionControls.LINE_EQUATION_LABEL;
-import static gui.control_components.SelectionControls.POSITION_LABEL;
-import static gui.control_components.SelectionControls.VELOCITY_LABEL;
 import static utils.Calculations.calculateAlphaByDistance;
 import static utils.Calculations.calculateLineEquation;
 import static utils.Calculations.calculateStrokeThicknessByDistance;
@@ -75,10 +73,7 @@ public class AnimationPanel extends JPanel {
             if (node.isSelected()) {
                 drawSelectedNodeLine(g2d, node);
                 g2d.setColor(SELECTED_NODE_COLOR);
-                POSITION_LABEL.setText("x: " + (int) node.getxPos() + " y: " + (int) node.getyPos());
-                VELOCITY_LABEL.setText("velocity: " +  String.format("%.2f", node.getVelocity()));
-                LINE_EQUATION_LABEL.setText("y=" + String.format("%.3f", node.getLineEquation()[0]) +
-                        "x + " + String.format("%.3f", node.getLineEquation()[1]));
+                SelectionControls.updateInfoLabels(node);
             }
             g2d.fillOval((int) node.getxPos() - PADDING, (int) node.getyPos() - PADDING, NODE_SIZE, NODE_SIZE);
         }
@@ -101,7 +96,6 @@ public class AnimationPanel extends JPanel {
                         p2.getxPos(), p2.getyPos()));
             }
         }
-
     }
 
     private static void drawSelectedNodeLine(Graphics2D g2d, Node node) {
