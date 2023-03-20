@@ -1,5 +1,7 @@
 package gui.control_components;
 
+import components.NodeManager;
+
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -22,7 +24,7 @@ public class AnimationControls extends JPanel {
         this.setBorder(border);
 
         this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-        this.add(createAnimationToggleButton());
+        this.add(createAnimationButtons());
         this.add(createAnimationSpeedSlider());
     }
 
@@ -44,19 +46,26 @@ public class AnimationControls extends JPanel {
         return slider;
     }
 
-    private JPanel createAnimationToggleButton() {
-        JButton button = new JButton("Stop");
-        button.addActionListener(e -> {
+    private JPanel createAnimationButtons() {
+        JButton playButton = new JButton("Stop");
+        playButton.addActionListener(e -> {
             if (!ANIMATION_PAUSED) {
                 ANIMATION_PAUSED = true;
-                button.setText("Play");
+                playButton.setText("Play");
             } else {
                 ANIMATION_PAUSED = false;
-                button.setText("Stop");
+                playButton.setText("Stop");
             }
         });
+
+        JButton resetButton = new JButton("Reset");
+        resetButton.addActionListener(e -> {
+            NodeManager.resetNodes();
+        });
+
         JPanel panel = new JPanel();
-        panel.add(button);
+        panel.add(playButton);
+        panel.add(resetButton);
         return panel;
     }
 

@@ -4,6 +4,7 @@ import components.Node;
 
 import static gui.panels.AnimationPanel.LINE_MAX_DISTANCE;
 import static gui.panels.AnimationPanel.LINE_MAX_WIDTH;
+import static gui.panels.AnimationPanel.NODE_SIZE;
 import static gui.panels.AnimationPanel.WINDOW_HEIGHT;
 import static gui.panels.AnimationPanel.WINDOW_WIDTH;
 import static utils.RandomGeneration.randomFloat;
@@ -11,8 +12,12 @@ import static utils.RandomGeneration.randomFloat;
 public class Calculations {
 
     public static float[] generateRandomLineEquationThroughPoint(float xCoord, float yCoord) {
-        float x2 = randomFloat(0f, WINDOW_WIDTH);
-        float y2 = randomFloat(0f, WINDOW_HEIGHT);
+        float x2 = randomFloat(NODE_SIZE * 2, WINDOW_WIDTH - NODE_SIZE * 2);
+        float y2 = randomFloat(NODE_SIZE * 2, WINDOW_HEIGHT - NODE_SIZE * 2);
+        while (Math.abs(xCoord - x2) < 100) {
+            x2 = randomFloat(NODE_SIZE * 2, WINDOW_WIDTH - NODE_SIZE * 2);
+            y2 = randomFloat(NODE_SIZE * 2, WINDOW_HEIGHT - NODE_SIZE * 2);
+        }
         float a = (y2 - yCoord) / (x2 - xCoord);
         float b = yCoord - a * xCoord;
         return new float[]{a, b};
