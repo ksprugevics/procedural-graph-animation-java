@@ -30,9 +30,6 @@ public class ControlPanel extends JPanel {
         tabbedPane.addTab("Animation", new ImageIcon(), animationSettings, "Animation settings");
         tabbedPane.addTab("Colors", new ImageIcon(), new ColorControls(), "Color settings");
         this.add(tabbedPane);
-
-        // individual node options - velocity line equation
-
     }
 }
 

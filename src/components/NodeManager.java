@@ -8,7 +8,7 @@ public final class NodeManager {
 
     private static NodeManager INSTANCE;
 
-    private static int NODE_COUNT = 10;
+    private static int NODE_COUNT = 50;
     private static final List<Node> NODES = new ArrayList<>();
     private static Node selectedNode;
 
@@ -18,6 +18,7 @@ public final class NodeManager {
 
     public static NodeManager getInstance() {
         if (INSTANCE == null) {
+            //noinspection InstantiationOfUtilityClass
             INSTANCE = new NodeManager();
         }
         return INSTANCE;

@@ -59,9 +59,7 @@ public class AnimationControls extends JPanel {
         });
 
         JButton resetButton = new JButton("Reset");
-        resetButton.addActionListener(e -> {
-            NodeManager.resetNodes();
-        });
+        resetButton.addActionListener(e -> NodeManager.resetNodes());
 
         JPanel panel = new JPanel();
         panel.add(playButton);

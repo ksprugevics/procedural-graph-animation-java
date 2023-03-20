@@ -24,23 +24,24 @@ public class AnimationPanel extends JPanel {
     public static final int WINDOW_WIDTH = 900;
     public static final int WINDOW_HEIGHT = 900;
 
-    public static Color BACKGROUND_COLOR = new Color(131, 193, 131);
-    public static Color NODE_COLOR = new Color(224, 251, 252);
-    public static Color SELECTED_NODE_COLOR = new Color(224, 8, 23);
-    public static Color LINE_COLOR = new Color(31, 198, 204);
-    public static Color SELECTED_NODE_LINE_COLOR = new Color(231, 108, 252, 125);
+    public static Color BACKGROUND_COLOR = new Color(168, 211, 255);
+    public static Color NODE_COLOR = new Color(0, 178, 255);
+    public static Color LINE_COLOR = new Color(0, 0, 0);
+
+    public static final Color SELECTED_NODE_LINE_COLOR = new Color(231, 108, 252, 125);
+    public static final Color SELECTED_NODE_COLOR = new Color(224, 8, 23);
 
     public static int NODE_SIZE = 50;
     public static int PADDING = NODE_SIZE / 2;
-    public static float LINE_MAX_WIDTH = 10;
-    public static int LINE_MAX_DISTANCE = 250;
+    public static float LINE_MAX_WIDTH = 5;
+    public static int LINE_MAX_DISTANCE = 200;
 
-    public static int ANIMATION_SPEED = 40;
+    public static final int INITIAL_TIMER_DELAY = 20;
     public static Timer ANIMATION_TIMER;
     public static boolean ANIMATION_PAUSED = false;
 
     public AnimationPanel() {
-        ANIMATION_TIMER = new Timer(ANIMATION_SPEED, e -> {
+        ANIMATION_TIMER = new Timer(INITIAL_TIMER_DELAY, e -> {
             if (!ANIMATION_PAUSED) {
                 NodeManager.getNodes().forEach(Node::move);
                 repaint();
