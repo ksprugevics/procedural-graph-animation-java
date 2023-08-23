@@ -12,7 +12,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Polygon;
 import java.awt.geom.Line2D;
+import java.util.ArrayList;
+import java.util.List;
 
 import static utils.Calculations.calculateAlphaByDistance;
 import static utils.Calculations.calculateLineEquation;
@@ -82,6 +85,7 @@ public class AnimationPanel extends JPanel {
 
     private static void drawLinesBetweenNodes(Graphics2D g2d) {
         for (int i = 0; i < NodeManager.getNodes().size(); i++) {
+            List<Node> neighboringNodes = new ArrayList<>();
             for (int j = 1; j < NodeManager.getNodes().size(); j++) {
                 Node p1 = NodeManager.getNodes().get(i);
                 Node p2 = NodeManager.getNodes().get(j);
@@ -90,12 +94,21 @@ public class AnimationPanel extends JPanel {
                 if (dist > LINE_MAX_DISTANCE) {
                     continue;
                 }
+                neighboringNodes.add(p2);
                 g2d.setStroke(new BasicStroke(calculateStrokeThicknessByDistance(dist)));
                 g2d.setColor(new Color(LINE_COLOR.getRed(), LINE_COLOR.getGreen(), LINE_COLOR.getBlue(),
                         calculateAlphaByDistance(dist)));
                 g2d.draw(new Line2D.Float(p1.getxPos(), p1.getyPos(),
                         p2.getxPos(), p2.getyPos()));
             }
+
+            int[] xPoss = neighboringNodes.stream().mapToInt(node -> (int) node.getxPos()).toArray();
+            int[] yPoss = neighboringNodes.stream().mapToInt(node -> (int) node.getyPos()).toArray();
+            Polygon polygon = new Polygon(xPoss, yPoss, xPoss.length);
+
+            g2d.setColor(new Color(Math.max(BACKGROUND_COLOR.getRed() - 50, 0), Math.max(BACKGROUND_COLOR.getGreen() - 50, 0), Math.max(BACKGROUND_COLOR.getBlue() - 50, 0), 50));
+            g2d.fill(polygon);
+
         }
     }
 
